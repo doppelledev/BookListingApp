@@ -1,6 +1,7 @@
 package com.example.android.booklistingapp;
 
-import android.app.LoaderManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
@@ -14,13 +15,10 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -75,13 +73,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
         Bundle b = new Bundle();
         b.putString("query", "");
-        getLoaderManager().initLoader(LOADER_ID, b, this);
+        getSupportLoaderManager().initLoader(LOADER_ID, b, this);
     }
 
     public void search(){
-
+        // Hide keyboard when the user finishes typing
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(searchEdit.getWindowToken(), 0);
+
         mAdapter.clear();
         ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm.getActiveNetworkInfo() == null) {
@@ -91,17 +90,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         emptyView.setText("");
         Bundle bundle = new Bundle();
         bundle.putString("query", searchEdit.getText().toString());
-        getLoaderManager().restartLoader(LOADER_ID, bundle, this);
+        getSupportLoaderManager().restartLoader(LOADER_ID, bundle, this);
 
     }
 
     @Override
-    public Loader<ArrayList<Book>> onCreateLoader(int i, Bundle bundle) {
+    public android.support.v4.content.Loader<ArrayList<Book>> onCreateLoader(int i, Bundle bundle) {
         return new BookLoader(this, bundle.getString("query"), progressBar);
     }
 
     @Override
-    public void onLoadFinished(Loader<ArrayList<Book>> loader, ArrayList<Book> books) {
+    public void onLoadFinished(@NonNull android.support.v4.content.Loader<ArrayList<Book>> loader, ArrayList<Book> books) {
         if (!first)
             emptyView.setText(getResources().getString(R.string.noBooksFound));
         first = false;
@@ -111,7 +110,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public void onLoaderReset(Loader<ArrayList<Book>> loader) {
+    public void onLoaderReset(@NonNull android.support.v4.content.Loader<ArrayList<Book>> loader) {
+        Log.d("woops", "onLaoderReset()");
         mAdapter.clear();
     }
 }
