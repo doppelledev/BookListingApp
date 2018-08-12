@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">searchbook</string>
+    <string name="title_activity_book">BookActivity</string>
+
+    <!-- strings used in .java files -->
+    <string name="noInternet">No internet</string>
+    <string name="noBooksFound">No books found</string>
+    <string name="linkNotAvailable">Link not available</string>
+    <string name="notFound">Not found</string>
+
+    <!--strings used in .xml files -->
+    <string name="searchBook">Search book</string>
+    <string name="publishedIn">Published in</string>
+    <string name="authors">Authors:</string>
+    <string name="publisher">Publisher:</string>
+    <string name="publishedDate">Published date:</string>
+    <string name="description">Description:</string>
+    <string name="ViewItOnline">View it Online</string>
+    <string name="sample_description">
+        See all the things coding can accomplish The demand for people with coding know-how exceeds the number
+        of people who understand the languages that power technology. Coding All-in-One For Dummies gives you
+        an ideal place to start when you\'re ready to add this valuable asset to your professional repertoire.
+        Whether you need to…
+    </string>
+
+</resources>
