@@ -23,4 +23,8 @@
         Whether you need to…
     </string>
 
+    <string name="no_results">"Oops, what you're looking for doesn't exist"</string>
+    <string name="try_again">Try other keywords</string>
+    <string name="no_internet">No internet connection :(</string>
+
 </resources>
