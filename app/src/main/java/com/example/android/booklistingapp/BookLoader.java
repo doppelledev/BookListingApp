@@ -3,7 +3,6 @@ package com.example.android.booklistingapp;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
