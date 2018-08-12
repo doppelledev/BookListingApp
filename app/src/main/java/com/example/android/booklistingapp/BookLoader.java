@@ -9,7 +9,7 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 
 public class BookLoader extends AsyncTaskLoader<ArrayList<Book>> {
-    private String search_query;
+    private String search_query, previous_search_query;
     private ProgressBar progressBar;
 
     public BookLoader(Context context, String search_query, ProgressBar progressBar) {
@@ -20,8 +20,16 @@ public class BookLoader extends AsyncTaskLoader<ArrayList<Book>> {
 
     @Override
     protected void onStartLoading() {
-        progressBar.setVisibility(View.VISIBLE);
-        forceLoad();
+        // we check if the search query is the same as the one used in the previous search
+        // if it is, we don't query the search
+        // If we don't check, the same search request will be sent again if the user
+        // goes back from another activity
+        // and we would see duplicated results
+        if (!search_query.equals(previous_search_query)) {
+            previous_search_query = search_query;
+            progressBar.setVisibility(View.VISIBLE);
+            forceLoad();
+        }
     }
 
     @Nullable
