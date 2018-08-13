@@ -8,8 +8,10 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/pager_tab"
+        style="@style/TabStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         app:tabMode="fixed" />
 
     <android.support.v4.view.ViewPager
