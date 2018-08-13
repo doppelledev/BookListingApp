@@ -7,17 +7,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 public class BookAdapter extends ArrayAdapter {
-    private ArrayList<Book> books;
 
-    public BookAdapter(Context context, ArrayList<Book> books){
+    public static final int MODE_SEARCH = 0;
+    public static final int MODE_LIBRARY = 1;
+
+    private ArrayList<Book> books;
+    private int mode;
+
+    public BookAdapter(Context context, ArrayList<Book> books, int mode){
         super(context, 0, books);
         this.books = books;
+        this.mode = mode;
     }
 
     @NonNull
@@ -39,6 +45,10 @@ public class BookAdapter extends ArrayAdapter {
         publishedDate = publishedDate.length() >= 5 ?
                 publishedDate.substring(0, 4) : getContext().getResources().getString(R.string.notFound);
         publishedDate_tv.setText(publishedDate);
+
+        ImageView cover = convertView.findViewById(R.id.cover);
+        if (this.mode == BookAdapter.MODE_SEARCH)
+            cover.setVisibility(View.GONE);
 
         return convertView;
     }

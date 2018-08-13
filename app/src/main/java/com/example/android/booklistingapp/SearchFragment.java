@@ -50,7 +50,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
         View rootView = inflater.inflate(R.layout.activity_search, container, false);
 
         listView = rootView.findViewById(R.id.list);
-        mAdapter = new BookAdapter(getContext(), new ArrayList<Book>());
+        mAdapter = new BookAdapter(getContext(), new ArrayList<Book>(), BookAdapter.MODE_SEARCH);
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
