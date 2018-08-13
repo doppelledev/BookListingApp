@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">searchbook</string>
     <string name="title_activity_book">BookActivity</string>
+    <string name="title_activity_library">My library</string>
 
     <!-- strings used in .java files -->
     <string name="noInternet">No internet</string>
@@ -26,5 +27,6 @@
     <string name="no_results">"Oops, what you're looking for doesn't exist"</string>
     <string name="try_again">Try other keywords</string>
     <string name="no_internet">No internet connection :(</string>
+    <string name="save_book">Save book</string>
 
 </resources>
