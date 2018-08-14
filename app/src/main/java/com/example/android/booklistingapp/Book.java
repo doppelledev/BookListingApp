@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import java.io.Serializable;
 
 public class Book implements Serializable{
+    private String id;
     private String title;
     private String authors;
     private String publisher;
@@ -13,8 +14,9 @@ public class Book implements Serializable{
     private String thumbUrl;
     private String link;
 
-    public Book(String title, String authors, String publisher,
+    public Book(String id, String title, String authors, String publisher,
                 String publishedDate, String description, String thumbUrl,  String link){
+        this.id = id;
         this.title = title;
         this.authors = authors;
         this.publisher = publisher;
@@ -22,6 +24,10 @@ public class Book implements Serializable{
         this.description = description;
         this.thumbUrl = thumbUrl;
         this.link = link;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {

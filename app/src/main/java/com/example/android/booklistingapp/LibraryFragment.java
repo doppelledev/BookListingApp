@@ -78,6 +78,7 @@ public class LibraryFragment extends Fragment implements LoaderManager.LoaderCal
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle bundle) {
         String [] projection = {
                 LibraryEntry._ID,
+                LibraryEntry.COLUMN_BOOKID,
                 LibraryEntry.COLUMN_TITLE,
                 LibraryEntry.COLUMN_AUTHORS,
                 LibraryEntry.COLUMN_PUBLISHER,

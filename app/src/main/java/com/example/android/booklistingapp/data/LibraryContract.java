@@ -44,10 +44,16 @@ public final class LibraryContract {
         public static final String TABLE_NAME = "library";
 
         /**
-         * Book id
+         * Column id
          * type: INTEGER
          */
         public static final String _ID = BaseColumns._ID;
+
+        /**
+         * Book id
+         * type: TEXT NOT NULL
+         */
+        public static String COLUMN_BOOKID = "bookid";
 
         /**
          * Book title

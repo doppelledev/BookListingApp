@@ -19,6 +19,7 @@ public class LibraryDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String SQL_CREATE_LIBRARY_TABLE = "CREATE TABLE " + LibraryEntry.TABLE_NAME + "("
                 + LibraryEntry._ID + " INTEGER PRIMARY KEY, "
+                + LibraryEntry.COLUMN_BOOKID + " TEXT NOT NULL, "
                 + LibraryEntry.COLUMN_TITLE + " TEXT NOT NULL, "
                 + LibraryEntry.COLUMN_AUTHORS + " TEXT NOT NULL, "
                 + LibraryEntry.COLUMN_PUBLISHER + " TEXT, "

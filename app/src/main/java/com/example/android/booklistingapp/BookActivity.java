@@ -3,6 +3,7 @@ package com.example.android.booklistingapp;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -26,7 +27,8 @@ import java.net.URL;
 public class BookActivity extends AppCompatActivity {
     public Book book;
     public static Bitmap thumbBitmap;
-
+    public boolean bookExists;
+    public Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +69,25 @@ public class BookActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
             }
         });
+
+        String selection = LibraryEntry.COLUMN_BOOKID + "=?";
+        String [] selectionArgs = {book.getId()};
+        Cursor cursor = getContentResolver().query(LibraryEntry.CONTENT_URI, null,
+                selection, selectionArgs, null);
+        if (cursor.getCount() == 0)
+            bookExists = true;
+        else
+            bookExists = false;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_save, menu);
-        return true;
+        if (bookExists) {
+            getMenuInflater().inflate(R.menu.menu_save, menu);
+            this.menu = menu;
+            return true;
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -90,6 +105,7 @@ public class BookActivity extends AppCompatActivity {
 
     private void saveBook() {
         ContentValues values = new ContentValues();
+        values.put(LibraryEntry.COLUMN_BOOKID, book.getId());
         values.put(LibraryEntry.COLUMN_TITLE, book.getTitle());
         values.put(LibraryEntry.COLUMN_AUTHORS, book.getAuthors());
         values.put(LibraryEntry.COLUMN_PUBLISHER, book.getPublisher());
@@ -101,8 +117,10 @@ public class BookActivity extends AppCompatActivity {
         Uri newUri = getContentResolver().insert(LibraryEntry.CONTENT_URI, values);
         if (newUri == null)
             Toast.makeText(this, R.string.not_saved, Toast.LENGTH_SHORT).show();
-        else
+        else {
             Toast.makeText(this, R.string.saved, Toast.LENGTH_SHORT).show();
+            menu.findItem(R.id.save_book).setVisible(false);
+        }
     }
 
 

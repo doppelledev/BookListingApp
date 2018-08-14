@@ -112,6 +112,7 @@ public class QueryUtils {
             JSONArray items = root.getJSONArray("items");
             ArrayList<Book> books = new ArrayList<>();
             for (int i = 0; i < items.length(); i++) {
+                String id = items.getJSONObject(i).getString("id");
                 JSONObject item = items.getJSONObject(i).getJSONObject("volumeInfo");
                 String title = item.getString("title");
                 JSONArray authors_array = item.optJSONArray("authors");
@@ -124,7 +125,7 @@ public class QueryUtils {
                 String thumbUrl = null;
                 if (imageLinks != null)
                     thumbUrl = imageLinks.optString("thumbnail");
-                books.add(new Book(title, authors, publisher, publishedDate, description, thumbUrl, link));
+                books.add(new Book(id, title, authors, publisher, publishedDate, description, thumbUrl, link));
             }
             return books;
         } catch (Exception e) {
