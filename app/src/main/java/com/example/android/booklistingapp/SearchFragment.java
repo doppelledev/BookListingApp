@@ -90,7 +90,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
         Bundle b = new Bundle();
         b.putString("query", "");
         getActivity().getSupportLoaderManager().initLoader(LOADER_ID, b, this);
-        
+
         return rootView;
     }
 

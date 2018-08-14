@@ -31,7 +31,7 @@ public class LibraryCursorAdapter extends CursorAdapter {
         authors_tv.setText(authors);
         TextView pubdate_tv = view.findViewById(R.id.published_date);
         String pubdate = cursor.getString(cursor.getColumnIndexOrThrow(LibraryEntry.COLUMN_PUBDATE));
-        pubdate = pubdate.length() >= 5 ?
+        pubdate = pubdate != null && pubdate.length() > 5 ?
                 pubdate.substring(0, 4) : context.getResources().getString(R.string.notFound);
         pubdate_tv.setText(pubdate);
     }

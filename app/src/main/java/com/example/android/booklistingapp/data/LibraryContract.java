@@ -13,7 +13,7 @@ public final class LibraryContract {
      * Constants used to generate uris for the table
      */
     public static final String CONTENT_AUTHORITY = "com.example.android.booklistingapp";
-    public static final Uri BASE_CONTENT_URI = Uri.parse(CONTENT_AUTHORITY);
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
     // Constant to be appended to BASE_CONTENT_URI to generate uri for the library table
     public static final String PATH_LIBRARY = "library";
