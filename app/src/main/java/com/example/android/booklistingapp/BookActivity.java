@@ -20,7 +20,7 @@ import java.net.URL;
 
 public class BookActivity extends AppCompatActivity {
     public Book book;
-    public ImageView thumb;
+    public static ImageView thumb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class BookActivity extends AppCompatActivity {
         });
     }
 
-    private class getThumb extends AsyncTask<String, Void, Bitmap> {
+    private static class getThumb extends AsyncTask<String, Void, Bitmap> {
 
         @Override
         protected Bitmap doInBackground(String... strings) {

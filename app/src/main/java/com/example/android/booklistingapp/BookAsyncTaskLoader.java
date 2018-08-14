@@ -7,10 +7,10 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
-public class BookLoader extends AsyncTaskLoader<ArrayList<Book>> {
+public class BookAsyncTaskLoader extends AsyncTaskLoader<ArrayList<Book>> {
     private String search_query, previous_search_query;
 
-    public BookLoader(Context context, String search_query, ProgressBar progressBar) {
+    public BookAsyncTaskLoader(Context context, String search_query, ProgressBar progressBar) {
         super(context);
         this.search_query = search_query;
     }

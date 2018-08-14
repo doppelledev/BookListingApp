@@ -28,7 +28,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
 
     public static final int LOADER_ID = 0;
     public static boolean first = true;
-    public BookAdapter mAdapter;
+    public BookArrayAdapter mAdapter;
     public ListView listView;
     public ProgressBar progressBar;
     public EditText searchEdit;
@@ -50,7 +50,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
         View rootView = inflater.inflate(R.layout.activity_search, container, false);
 
         listView = rootView.findViewById(R.id.list);
-        mAdapter = new BookAdapter(getContext(), new ArrayList<Book>(), BookAdapter.MODE_SEARCH);
+        mAdapter = new BookArrayAdapter(getContext(), new ArrayList<Book>());
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -117,7 +117,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
             progressBar.setVisibility(View.VISIBLE);
         }
         setEmptyView(View.GONE);
-        return new BookLoader(getContext(), bundle.getString("query"), progressBar);
+        return new BookAsyncTaskLoader(getContext(), bundle.getString("query"), progressBar);
     }
 
     @Override

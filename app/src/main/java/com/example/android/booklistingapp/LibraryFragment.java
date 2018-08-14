@@ -1,21 +1,23 @@
 package com.example.android.booklistingapp;
 
 
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 
+public class LibraryFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class LibraryFragment extends Fragment {
-
+    public static LibraryCursorAdapter mAdapter;
+    public static int LOADER_ID = 0;
 
     public LibraryFragment() {
         // Required empty public constructor
@@ -28,14 +30,28 @@ public class LibraryFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_library, container, false);
 
+        mAdapter = new LibraryCursorAdapter(getContext(), null);
         ListView listView = rootView.findViewById(R.id.library_list);
-        ArrayList<Book> books = new ArrayList<>();
-        books.add(new Book("Game of Thrones", "Jake Paul", "National geographic",
-                "2018", "Medieval shit", "", "www.google.com"));
-        BookAdapter adapter = new BookAdapter(getContext(), books, BookAdapter.MODE_LIBRARY);
-        listView.setAdapter(adapter);
+        listView.setAdapter(mAdapter);
+
+        getActivity().getSupportLoaderManager().initLoader(LOADER_ID, null, this);
 
         return rootView;
     }
 
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+
+    }
 }

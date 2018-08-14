@@ -55,7 +55,7 @@ public class LibraryProvider extends ContentProvider {
                         null, null, sortOrder);
                 break;
             default:
-                throw new IllegalArgumentException("Can't query, Invalid Uri: " + uri);
+                throw new IllegalArgumentException("Can't query. Invalid Uri: " + uri);
         }
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
@@ -64,16 +64,16 @@ public class LibraryProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues) {
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
         switch (mUriMatcher.match(uri)) {
             case WHOLE_TABLE:
                 return insertBook(uri, contentValues);
             default:
-                throw new IllegalArgumentException("Can't insert, Invalid Uri: " + uri);
+                throw new IllegalArgumentException("Can't insert. Invalid Uri: " + uri);
         }
     }
 
     private Uri insertBook(Uri uri, ContentValues values) {
+        // sanity checks
         String title = values.getAsString(LibraryEntry.COLUMN_TITLE);
         if (title == null || TextUtils.isEmpty(title))
             throw new IllegalArgumentException("No title provided");
@@ -81,26 +81,88 @@ public class LibraryProvider extends ContentProvider {
         if (authors == null || TextUtils.isEmpty(authors))
             throw new IllegalArgumentException("No author provided");
 
+        // actual insertion
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         long id = db.insert(LibraryEntry.TABLE_NAME, null, values);
         if (id == -1)
+            // insertion failed
             return null;
+        // insertion succeeded
+        // notify changes
+        getContext().getContentResolver().notifyChange(uri, null);
         return ContentUris.withAppendedId(uri, id);
     }
 
     @Override
-    public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        int rowsDeleted;
+        switch (mUriMatcher.match(uri)) {
+            case WHOLE_TABLE:
+                rowsDeleted = db.delete(LibraryEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case SPECIFIC_ROW:
+                selection = LibraryEntry._ID + "=?";
+                selectionArgs = new String [] {String.valueOf(ContentUris.parseId(uri))};
+                rowsDeleted = db.delete(LibraryEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException("Can't delete. Invalid Uri: " + uri);
+        }
+        if (rowsDeleted > 0)
+            getContext().getContentResolver().notifyChange(uri, null);
+        return rowsDeleted;
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues,
+                      @Nullable String selection, @Nullable String[] selectionArgs) {
+        switch (mUriMatcher.match(uri)) {
+            case WHOLE_TABLE:
+                return updateBooks(uri, contentValues, selection, selectionArgs);
+            case SPECIFIC_ROW:
+                selection = LibraryEntry.TABLE_NAME + "=?";
+                selectionArgs = new String [] {String.valueOf(ContentUris.parseId(uri))};
+                return updateBooks(uri, contentValues, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException("Can't update. Invalid Uri: " + uri);
+        }
+    }
+
+    private int updateBooks(Uri uri, ContentValues values, String selection, String [] selectionArgs) {
+        // sanity checks
+        if (values.size() == 0)
+            return 0;
+        if (values.containsKey(LibraryEntry.COLUMN_TITLE)) {
+            String title = values.getAsString(LibraryEntry.TABLE_NAME);
+            if (title == null || TextUtils.isEmpty(title))
+                throw new IllegalArgumentException("No title provided");
+        }
+        if (values.containsKey(LibraryEntry.COLUMN_AUTHORS)) {
+            String authors = values.getAsString(LibraryEntry.COLUMN_AUTHORS);
+            if (authors == null || TextUtils.isEmpty(authors))
+                throw new IllegalArgumentException("No author provided");
+        }
+
+        // actual update
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        int rowsUpdated = db.update(LibraryEntry.TABLE_NAME, values, selection, selectionArgs);
+        if (rowsUpdated > 0)
+            // some rows have been updated, notify
+            getContext().getContentResolver().notifyChange(uri, null);
+        return rowsUpdated;
     }
 
     @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
-        return null;
+        switch (mUriMatcher.match(uri)) {
+            case WHOLE_TABLE:
+                return LibraryEntry.CONTENT_DIR_TYPE;
+            case SPECIFIC_ROW:
+                return LibraryEntry.CONTENT_ITEM_TYPE;
+            default:
+                throw new IllegalArgumentException("Can't get type. Invalid Uri: " + uri);
+        }
     }
 }
