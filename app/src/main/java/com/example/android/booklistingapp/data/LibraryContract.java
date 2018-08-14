@@ -12,11 +12,11 @@ public final class LibraryContract {
     /**
      * Constants used to generate uris for the table
      */
-    private static final String CONTENT_AUTHORITY = "com.example.android.booklistingapp";
-    private static final Uri BASE_CONTENT_URI = Uri.parse(CONTENT_AUTHORITY);
+    public static final String CONTENT_AUTHORITY = "com.example.android.booklistingapp";
+    public static final Uri BASE_CONTENT_URI = Uri.parse(CONTENT_AUTHORITY);
 
     // Constant to be appended to BASE_CONTENT_URI to generate uri for the library table
-    private static final String PATH_LIBRARY = "library";
+    public static final String PATH_LIBRARY = "library";
 
     public LibraryContract() {
         // Not instantiable
@@ -35,6 +35,11 @@ public final class LibraryContract {
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LIBRARY;
 
+        /**
+         * Uri used to operate on this table
+         */
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_LIBRARY);
+
         // the name of the table
         public static final String TABLE_NAME = "library";
 
@@ -46,19 +51,19 @@ public final class LibraryContract {
 
         /**
          * Book title
-         * type: TEXT
+         * type: INTEGER AUTOINCREMENT
          */
         public static final String COLUMN_TITLE = "title";
 
         /**
          * Book authors
-         * type: TEXT
+         * type: TEXT NOT NULL
          */
         public static final String COLUMN_AUTHORS = "authors";
 
         /**
          * Book publisher
-         * type: TEXT
+         * type: TEXT NOT NULL
          */
         public static final String COLUMN_PUBLISHER = "publisher";
 
