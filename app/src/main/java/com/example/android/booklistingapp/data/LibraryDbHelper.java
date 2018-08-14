@@ -25,7 +25,7 @@ public class LibraryDbHelper extends SQLiteOpenHelper {
                 + LibraryEntry.COLUMN_PUBDATE + " TEXT, "
                 + LibraryEntry.COLUMN_DESCRIPTION + " TEXT, "
                 + LibraryEntry.COLUMN_LINK + " TEXT, "
-                + LibraryEntry.COLUMN_COVER + " BLOB);";
+                + LibraryEntry.COLUMN_THUMB + " BLOB);";
         sqLiteDatabase.execSQL(SQL_CREATE_LIBRARY_TABLE);
     }
 

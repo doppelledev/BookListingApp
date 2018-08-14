@@ -32,4 +32,6 @@
     <string name="search_frag">searchbook</string>
     <string name="library_frag">My library</string>
 
+    <string name="not_saved">Error saving the book</string>
+    <string name="saved">Saved</string>
 </resources>

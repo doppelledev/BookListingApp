@@ -2,10 +2,12 @@ package com.example.android.booklistingapp;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.booklistingapp.data.LibraryContract.LibraryEntry;
@@ -34,5 +36,13 @@ public class LibraryCursorAdapter extends CursorAdapter {
         pubdate = pubdate != null && pubdate.length() > 5 ?
                 pubdate.substring(0, 4) : context.getResources().getString(R.string.notFound);
         pubdate_tv.setText(pubdate);
+        ImageView thumb = view.findViewById(R.id.thumb);
+        byte [] thumbBytes = cursor.getBlob(cursor.getColumnIndexOrThrow(LibraryEntry.COLUMN_THUMB));
+        if (thumbBytes == null)
+            thumb.setImageResource(R.drawable.image404);
+        else {
+            Bitmap thumbBitmap = BitmapUtils.getBitmap(thumbBytes);
+            thumb.setImageBitmap(thumbBitmap);
+        }
     }
 }

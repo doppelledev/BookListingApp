@@ -94,6 +94,14 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // this prevents the starting image to go visible again after rotating the screen
+        if (!first)
+            startingImage.setVisibility(View.GONE);
+    }
+
     public void search(){
         // Hide keyboard when the user finishes typing
         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);

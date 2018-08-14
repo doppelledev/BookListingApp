@@ -6,8 +6,8 @@
     tools:context=".BookActivity">
 
     <item
-        android:id="@+id/add_book"
+        android:id="@+id/save_book"
         android:title="@string/save_book"
-        android:icon="@drawable/ic_action_add"
+        android:icon="@drawable/ic_action_save"
         app:showAsAction="always" />
 </menu>

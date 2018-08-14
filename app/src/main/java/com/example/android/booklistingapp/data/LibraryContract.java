@@ -86,9 +86,9 @@ public final class LibraryContract {
         public static final String COLUMN_LINK = "link";
 
         /**
-         * Book cover
+         * Book thumbnail
          * type: BLOB
          */
-        public static final String COLUMN_COVER = "cover";
+        public static final String COLUMN_THUMB = "thumb";
     }
 }

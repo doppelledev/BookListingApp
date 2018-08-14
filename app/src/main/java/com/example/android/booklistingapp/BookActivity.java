@@ -1,5 +1,7 @@
 package com.example.android.booklistingapp;
 
+import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,6 +9,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -15,11 +18,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.android.booklistingapp.data.LibraryContract.LibraryEntry;
+
+import java.lang.ref.WeakReference;
 import java.net.URL;
 
 public class BookActivity extends AppCompatActivity {
     public Book book;
-    public static ImageView thumb;
+    public static Bitmap thumbBitmap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +35,7 @@ public class BookActivity extends AppCompatActivity {
 
         book = (Book)getIntent().getSerializableExtra("Book");
 
-        thumb = findViewById(R.id.s_thumb);
-        getThumb task = new getThumb();
+        getThumb task = new getThumb(this);
         task.execute(book.getThumbUrl());
 
         String field;
@@ -63,7 +69,52 @@ public class BookActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_save, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.save_book:
+                saveBook();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void saveBook() {
+        ContentValues values = new ContentValues();
+        values.put(LibraryEntry.COLUMN_TITLE, book.getTitle());
+        values.put(LibraryEntry.COLUMN_AUTHORS, book.getAuthors());
+        values.put(LibraryEntry.COLUMN_PUBLISHER, book.getPublisher());
+        values.put(LibraryEntry.COLUMN_PUBDATE, book.getPublishedDate());
+        values.put(LibraryEntry.COLUMN_DESCRIPTION, book.getDescription());
+        values.put(LibraryEntry.COLUMN_LINK, book.getLink());
+        byte [] thumbBytes = BitmapUtils.getBytes(thumbBitmap);
+        values.put(LibraryEntry.COLUMN_THUMB, thumbBytes);
+        Uri newUri = getContentResolver().insert(LibraryEntry.CONTENT_URI, values);
+        if (newUri == null)
+            Toast.makeText(this, R.string.not_saved, Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this, R.string.saved, Toast.LENGTH_SHORT).show();
+    }
+
+
+
     private static class getThumb extends AsyncTask<String, Void, Bitmap> {
+
+        WeakReference<Activity> mWeakReference;
+
+        getThumb(Activity activity) {
+            super();
+            mWeakReference = new WeakReference<>(activity);
+        }
 
         @Override
         protected Bitmap doInBackground(String... strings) {
@@ -78,20 +129,14 @@ public class BookActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
+            Activity activity = mWeakReference.get();
+            ImageView thumb= activity.findViewById(R.id.s_thumb);
             if (bitmap != null)
                 thumb.setImageBitmap(bitmap);
             else
                 thumb.setImageResource(R.drawable.image404);
+            thumbBitmap = bitmap;
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

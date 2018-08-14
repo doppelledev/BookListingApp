@@ -41,8 +41,8 @@ public class BookArrayAdapter extends ArrayAdapter {
                 publishedDate.substring(0, 4) : getContext().getResources().getString(R.string.notFound);
         publishedDate_tv.setText(publishedDate);
 
-        ImageView cover = convertView.findViewById(R.id.cover);
-        cover.setVisibility(View.GONE);
+        ImageView thumb = convertView.findViewById(R.id.thumb);
+        thumb.setVisibility(View.GONE);
 
         return convertView;
     }

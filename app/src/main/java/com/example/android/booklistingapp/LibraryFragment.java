@@ -1,6 +1,5 @@
 package com.example.android.booklistingapp;
 
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -86,15 +84,13 @@ public class LibraryFragment extends Fragment implements LoaderManager.LoaderCal
                 LibraryEntry.COLUMN_PUBDATE,
                 LibraryEntry.COLUMN_DESCRIPTION,
                 LibraryEntry.COLUMN_LINK,
-                LibraryEntry.COLUMN_COVER};
-        Log.d("woops", "onCreateLoader");
+                LibraryEntry.COLUMN_THUMB};
         return new CursorLoader(getContext(), LibraryEntry.CONTENT_URI, projection,
                 null, null, null);
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
-        Log.d("woops", "cursor size = " + (cursor == null ? "null" : cursor.getCount()));
         mAdapter.swapCursor(cursor);
     }
 
