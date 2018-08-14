@@ -12,6 +12,8 @@ public class BitmapUtils {
     }
 
     public static byte [] getBytes(Bitmap bitmap) {
+        if (bitmap == null)
+            return null;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
         byte [] bitmapBytes = stream.toByteArray();

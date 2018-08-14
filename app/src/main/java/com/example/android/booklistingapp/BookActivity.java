@@ -113,6 +113,11 @@ public class BookActivity extends AppCompatActivity {
         values.put(LibraryEntry.COLUMN_DESCRIPTION, book.getDescription());
         values.put(LibraryEntry.COLUMN_LINK, book.getLink());
         byte [] thumbBytes = BitmapUtils.getBytes(thumbBitmap);
+        if (thumbBytes == null) {
+            // if the book has no thumbnail, set the thumbnail to a default image
+            Bitmap image404 = BitmapFactory.decodeResource(getResources(), R.drawable.image404);
+            thumbBytes = BitmapUtils.getBytes(image404);
+        }
         values.put(LibraryEntry.COLUMN_THUMB, thumbBytes);
         Uri newUri = getContentResolver().insert(LibraryEntry.CONTENT_URI, values);
         if (newUri == null)
