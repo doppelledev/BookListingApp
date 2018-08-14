@@ -1,11 +1,7 @@
 package com.example.android.booklistingapp;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
