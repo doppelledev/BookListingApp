@@ -48,37 +48,31 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
 
-    <TextView
-        android:id="@+id/empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
-
     <RelativeLayout
-        android:id="@+id/empty_view"
+        android:id="@+id/search_emptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/empty_image"
+            android:id="@+id/search_emptyImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_centerInParent="true"
             tools:src="@drawable/open_book"/>
         <TextView
-            android:id="@+id/empty_title"
+            android:id="@+id/search_emptyTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/empty_image"
+            android:layout_below="@id/search_emptyImage"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_centerHorizontal="true"
             android:textColor="@color/black"
             tools:text="@string/no_results"/>
         <TextView
-            android:id="@+id/empty_subtitle"
+            android:id="@+id/search_emptySubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/empty_title"
+            android:layout_below="@id/search_emptyTitle"
             android:layout_centerHorizontal="true"
             tools:text="@string/try_again"/>
     </RelativeLayout>

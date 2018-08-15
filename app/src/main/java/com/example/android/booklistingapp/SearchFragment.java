@@ -47,7 +47,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_search, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_search, container, false);
 
         listView = rootView.findViewById(R.id.list);
         mAdapter = new BookArrayAdapter(getContext(), new ArrayList<Book>());
@@ -81,10 +81,10 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
                 search();
             }
         });
-        emptyView = rootView.findViewById(R.id.empty_view);
-        emptyImage = rootView.findViewById(R.id.empty_image);
-        emptyTitle = rootView.findViewById(R.id.empty_title);
-        emptySubTitle = rootView.findViewById(R.id.empty_subtitle);
+        emptyView = rootView.findViewById(R.id.search_emptyView);
+        emptyImage = rootView.findViewById(R.id.search_emptyImage);
+        emptyTitle = rootView.findViewById(R.id.search_emptyTitle);
+        emptySubTitle = rootView.findViewById(R.id.search_emptySubtitle);
         startingImage = rootView.findViewById(R.id.starting_image);
 
         Bundle b = new Bundle();

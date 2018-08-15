@@ -13,9 +13,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -33,15 +30,13 @@ public class LibraryFragment extends Fragment implements LoaderManager.LoaderCal
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_library, container, false);
-
-        mAdapter = new LibraryCursorAdapter(getActivity(), null);
         ListView listView = rootView.findViewById(R.id.library_list);
+        mAdapter = new LibraryCursorAdapter(getActivity(), null);
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -52,7 +47,7 @@ public class LibraryFragment extends Fragment implements LoaderManager.LoaderCal
                 startActivity(intent);
             }
         });
-
+        listView.setEmptyView(rootView.findViewById(R.id.library_emptyView));
         getLoaderManager().initLoader(LOADER_ID, null, this);
 
         return rootView;
@@ -85,30 +80,6 @@ public class LibraryFragment extends Fragment implements LoaderManager.LoaderCal
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_library, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.insert_dummy:
-                insertDummy();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void insertDummy() {
-        ContentValues values = new ContentValues();
-        values.put(LibraryEntry.COLUMN_BOOKID, "#########");
-        values.put(LibraryEntry.COLUMN_TITLE, "Game of Throne");
-        values.put(LibraryEntry.COLUMN_AUTHORS, "Jake Paul");
-        getContext().getContentResolver().insert(LibraryEntry.CONTENT_URI, values);
     }
 
     @NonNull

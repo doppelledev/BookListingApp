@@ -19,9 +19,9 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new SearchFragment();
-            default:
                 return new LibraryFragment();
+            default:
+                return new SearchFragment();
         }
     }
 
@@ -35,9 +35,9 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return context.getString(R.string.search_frag);
-            case 1:
                 return context.getString(R.string.library_frag);
+            case 1:
+                return context.getString(R.string.search_frag);
             default:
                 return null;
         }

@@ -41,4 +41,7 @@
     <string name="no">No</string>
     <string name="deleted">Book deleted</string>
     <string name="not_deleted">Couldn\'t delete book</string>
+
+    <string name="start">Start by adding some books from the search tab</string>
+    <string name="empty_library">It\'s empty here… :(</string>
 </resources>
