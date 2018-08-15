@@ -51,7 +51,7 @@ public class BookActivity extends AppCompatActivity {
         }
 
         setTitle(book.getTitle());
-        
+
         String field;
         String notFound = getResources().getString(R.string.notFound);
         bookid = book.getId();

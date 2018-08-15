@@ -28,7 +28,7 @@
     <string name="no_internet">No internet connection :(</string>
     <string name="save_book">Save book</string>
 
-    <string name="search_frag">searchbook</string>
+    <string name="search_frag">search</string>
     <string name="library_frag">My library</string>
 
     <string name="not_saved">Error saving the book</string>
