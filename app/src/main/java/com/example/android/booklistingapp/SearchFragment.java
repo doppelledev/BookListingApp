@@ -108,6 +108,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
         imm.hideSoftInputFromWindow(searchEdit.getWindowToken(), 0);
 
         mAdapter.clear();
+        startingImage.setVisibility(View.GONE);
         ConnectivityManager cm = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm.getActiveNetworkInfo() == null) {
             setEmptyView(NO_INTERNET);
@@ -121,7 +122,6 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public android.support.v4.content.Loader<ArrayList<Book>> onCreateLoader(int i, Bundle bundle) {
         if (!first) {
-            startingImage.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
         }
         setEmptyView(View.GONE);

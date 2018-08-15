@@ -39,6 +39,7 @@ public class LibraryFragment extends Fragment implements LoaderManager.LoaderCal
         mAdapter = new LibraryCursorAdapter(getActivity(), null);
         ListView listView = rootView.findViewById(R.id.library_list);
         listView.setAdapter(mAdapter);
+
         getLoaderManager().initLoader(LOADER_ID, null, this);
 
         return rootView;
@@ -68,6 +69,7 @@ public class LibraryFragment extends Fragment implements LoaderManager.LoaderCal
 
     private void insertDummy() {
         ContentValues values = new ContentValues();
+        values.put(LibraryEntry.COLUMN_BOOKID, "#########");
         values.put(LibraryEntry.COLUMN_TITLE, "Game of Throne");
         values.put(LibraryEntry.COLUMN_AUTHORS, "Jake Paul");
         getContext().getContentResolver().insert(LibraryEntry.CONTENT_URI, values);
