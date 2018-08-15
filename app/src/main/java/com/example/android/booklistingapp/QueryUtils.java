@@ -16,7 +16,8 @@ import java.util.ArrayList;
 public class QueryUtils {
 
     private final static String API_KEY = "AIzaSyDo6J7OLiKwl72LUTJtvB1KHD8RT-q0QeE";
-    private final static String URL_PREFIX = "https://www.googleapis.com/books/v1/volumes?prettyPrint=false&maxResults=20&";
+    private final static String URL_PREFIX =
+            "https://www.googleapis.com/books/v1/volumes?prettyPrint=false&maxResults=40&";
 
     private QueryUtils() {
     }

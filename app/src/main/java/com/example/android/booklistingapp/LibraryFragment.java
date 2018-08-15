@@ -92,7 +92,7 @@ public class LibraryFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle bundle) {
         return new CursorLoader(getContext(), LibraryEntry.CONTENT_URI, null,
-                null, null, null);
+                null, null, LibraryEntry._ID + " DESC");
     }
 
     @Override
