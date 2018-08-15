@@ -26,6 +26,8 @@ public class BitmapUtils {
     }
 
     public static Bitmap getBitmap(byte [] bitmapBytes) {
-        return BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
+        if (bitmapBytes != null)
+            return BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
+        return null;
     }
 }

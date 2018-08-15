@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 
 import com.example.android.booklistingapp.data.LibraryContract.LibraryEntry;
@@ -50,7 +48,7 @@ public class LibraryFragment extends Fragment implements LoaderManager.LoaderCal
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Book book = getBook(id);
                 Intent intent = new Intent(getActivity(), BookActivity.class);
-                intent.putExtra("book", book);
+                intent.putExtra("Book", book);
                 startActivity(intent);
             }
         });
@@ -116,17 +114,7 @@ public class LibraryFragment extends Fragment implements LoaderManager.LoaderCal
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle bundle) {
-        String [] projection = {
-                LibraryEntry._ID,
-                LibraryEntry.COLUMN_BOOKID,
-                LibraryEntry.COLUMN_TITLE,
-                LibraryEntry.COLUMN_AUTHORS,
-                LibraryEntry.COLUMN_PUBLISHER,
-                LibraryEntry.COLUMN_PUBDATE,
-                LibraryEntry.COLUMN_DESCRIPTION,
-                LibraryEntry.COLUMN_LINK,
-                LibraryEntry.COLUMN_THUMB};
-        return new CursorLoader(getContext(), LibraryEntry.CONTENT_URI, projection,
+        return new CursorLoader(getContext(), LibraryEntry.CONTENT_URI, null,
                 null, null, null);
     }
 

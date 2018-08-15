@@ -36,10 +36,12 @@ public class BookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
 
+        thumb = findViewById(R.id.s_thumb);
         book = (Book)getIntent().getSerializableExtra("Book");
-        if (book.getThumbUrl() == null) {
+        if (book.getThumbUrl() != null) {
             getThumb task = new getThumb(this);
             task.execute(book.getThumbUrl());
+            updateImage();
         } else {
             thumbBitmap = BitmapUtils.getBitmap(book.getThumbBytes());
             updateImage();
