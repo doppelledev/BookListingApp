@@ -24,6 +24,8 @@ public class LibraryFragment extends Fragment implements LoaderManager.LoaderCal
 
     public static LibraryCursorAdapter mAdapter;
     public static int LOADER_ID = 0;
+    ListView listView;
+    View emptyView;
 
     public LibraryFragment() {
         // Required empty public constructor
@@ -34,7 +36,7 @@ public class LibraryFragment extends Fragment implements LoaderManager.LoaderCal
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_library, container, false);
-        ListView listView = rootView.findViewById(R.id.library_list);
+        listView = rootView.findViewById(R.id.library_list);
         mAdapter = new LibraryCursorAdapter(getActivity(), null);
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -46,7 +48,7 @@ public class LibraryFragment extends Fragment implements LoaderManager.LoaderCal
                 startActivity(intent);
             }
         });
-        listView.setEmptyView(rootView.findViewById(R.id.library_emptyView));
+        emptyView = rootView.findViewById(R.id.library_emptyView);
         getLoaderManager().initLoader(LOADER_ID, null, this);
 
         return rootView;
@@ -96,6 +98,9 @@ public class LibraryFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
         mAdapter.swapCursor(cursor);
+        // we set the empty view here so it won't show for a fraction of a second the first time
+        // the user launches the app
+        listView.setEmptyView(emptyView);
     }
 
     @Override
