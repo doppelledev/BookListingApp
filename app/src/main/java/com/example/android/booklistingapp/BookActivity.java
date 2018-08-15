@@ -1,7 +1,9 @@
 package com.example.android.booklistingapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -26,6 +28,7 @@ import java.net.URL;
 
 public class BookActivity extends AppCompatActivity {
     public Book book;
+    String bookid;
     public ImageView thumb;
     public static Bitmap thumbBitmap;
     public boolean bookExists;
@@ -49,6 +52,7 @@ public class BookActivity extends AppCompatActivity {
 
         String field;
         String notFound = getResources().getString(R.string.notFound);
+        bookid = book.getId();
         TextView title = findViewById(R.id.s_title);
         title.setText(book.getTitle());
         TextView authors = findViewById(R.id.s_authors);
@@ -97,8 +101,10 @@ public class BookActivity extends AppCompatActivity {
             getMenuInflater().inflate(R.menu.menu_save, menu);
             this.menu = menu;
             return true;
+        } else {
+            getMenuInflater().inflate(R.menu.menu_delete, menu);
+            return true;
         }
-        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -109,6 +115,9 @@ public class BookActivity extends AppCompatActivity {
                 return true;
             case R.id.save_book:
                 saveBook();
+                return true;
+            case R.id.delete_book:
+                deleteBook();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -139,7 +148,35 @@ public class BookActivity extends AppCompatActivity {
         }
     }
 
-
+    public void deleteBook() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.sureness))
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String selection = LibraryEntry.COLUMN_BOOKID + "=?";
+                        String [] selectionArgs = {bookid};
+                        int rowsDeleted =
+                                getContentResolver().delete(LibraryEntry.CONTENT_URI, selection, selectionArgs);
+                        if (rowsDeleted > 0) {
+                            Toast.makeText(getApplicationContext(), getString(R.string.deleted),
+                                    Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else
+                            Toast.makeText(getApplicationContext(), getString(R.string.not_deleted),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (dialogInterface != null)
+                            dialogInterface.dismiss();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 
     private static class getThumb extends AsyncTask<String, Void, Bitmap> {
 

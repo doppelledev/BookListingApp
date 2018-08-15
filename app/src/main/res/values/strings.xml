@@ -34,4 +34,11 @@
 
     <string name="not_saved">Error saving the book</string>
     <string name="saved">Saved</string>
+    <string name="delete_book">Delete book</string>
+
+    <string name="sureness">Are you sure you wan\'t to delete this book?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="deleted">Book deleted</string>
+    <string name="not_deleted">Couldn\'t delete book</string>
 </resources>
