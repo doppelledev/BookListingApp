@@ -48,53 +48,44 @@ public final class LibraryContract {
          * type: INTEGER
          */
         public static final String _ID = BaseColumns._ID;
-
-        /**
-         * Book id
-         * type: TEXT NOT NULL
-         */
-        public static String COLUMN_BOOKID = "bookid";
-
         /**
          * Book title
          * type: INTEGER AUTOINCREMENT
          */
         public static final String COLUMN_TITLE = "title";
-
         /**
          * Book authors
          * type: TEXT NOT NULL
          */
         public static final String COLUMN_AUTHORS = "authors";
-
         /**
          * Book publisher
          * type: TEXT NOT NULL
          */
         public static final String COLUMN_PUBLISHER = "publisher";
-
         /**
          * Book published date
          * type: TEXT
          */
         public static final String COLUMN_PUBDATE = "pubdate";
-
         /**
          * Book description
          */
         public static final String COLUMN_DESCRIPTION = "description";
-
         /**
          * Book online link
          * type: TEXT
-         *
          */
         public static final String COLUMN_LINK = "link";
-
         /**
          * Book thumbnail
          * type: BLOB
          */
         public static final String COLUMN_THUMB = "thumb";
+        /**
+         * Book id
+         * type: TEXT NOT NULL
+         */
+        public static String COLUMN_BOOKID = "bookid";
     }
 }

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ListView
         android:id="@+id/library_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:id="@+id/library_emptyView"
@@ -20,24 +18,26 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/grouped_books"/>
+            android:src="@drawable/grouped_books" />
+
         <TextView
             android:id="@+id/library_emptyTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/library_emptyImage"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/black"
+            android:text="@string/empty_library"
             android:textAlignment="center"
-            android:text="@string/empty_library"/>
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black" />
+
         <TextView
             android:id="@+id/library_emptySubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/library_emptyTitle"
             android:layout_centerHorizontal="true"
-            android:textAlignment="center"
-            android:text="@string/start"/>
+            android:text="@string/start"
+            android:textAlignment="center" />
     </RelativeLayout>
 </RelativeLayout>

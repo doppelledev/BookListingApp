@@ -52,6 +52,11 @@ public class LibraryFragment extends Fragment implements LoaderManager.LoaderCal
         return rootView;
     }
 
+    /**
+     * Query the database for the book with the provided id.
+     * Create a Book object using the information returned from the query.
+     * Return the book
+     */
     private Book getBook(long id) {
         Uri uri = ContentUris.withAppendedId(LibraryEntry.CONTENT_URI, id);
         Cursor cursor = getContext().getContentResolver().query(uri, null, null,
@@ -66,7 +71,7 @@ public class LibraryFragment extends Fragment implements LoaderManager.LoaderCal
                 String publisher = cursor.getString(cursor.getColumnIndexOrThrow(LibraryEntry.COLUMN_PUBLISHER));
                 String pubdate = cursor.getString(cursor.getColumnIndexOrThrow(LibraryEntry.COLUMN_PUBDATE));
                 String description = cursor.getString(cursor.getColumnIndexOrThrow(LibraryEntry.COLUMN_DESCRIPTION));
-                byte [] thumbBytes = cursor.getBlob(cursor.getColumnIndexOrThrow(LibraryEntry.COLUMN_THUMB));
+                byte[] thumbBytes = cursor.getBlob(cursor.getColumnIndexOrThrow(LibraryEntry.COLUMN_THUMB));
                 String link = cursor.getString(cursor.getColumnIndexOrThrow(LibraryEntry.COLUMN_LINK));
                 book = new Book(bookid, title, authors, publisher, pubdate, description, thumbBytes, link);
             }

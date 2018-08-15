@@ -1,14 +1,11 @@
 <resources>
     <string name="app_name">Librarian</string>
-    <string name="title_activity_library">My library</string>
 
-    <!-- strings used in .java files -->
     <string name="noInternet">No internet</string>
     <string name="noBooksFound">No books found</string>
     <string name="linkNotAvailable">Link not available</string>
     <string name="notFound">Not found</string>
 
-    <!--strings used in .xml files -->
     <string name="search">Search</string>
     <string name="publishedIn">Published in</string>
     <string name="authors">Authors:</string>

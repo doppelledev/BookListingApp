@@ -28,42 +28,40 @@ import java.util.ArrayList;
 public class SearchFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Book>> {
 
     public static final int LOADER_ID = 0;
-    public static boolean first = true;
+    public static final int NO_RESULTS = 0;
+    public static final int NO_INTERNET = 1;
+    public static boolean first = true; // First time searching?
     public BookArrayAdapter mAdapter;
     public ListView listView;
     public ProgressBar progressBar;
     public EditText searchEdit;
     public View searchButton;
-
     public View emptyView;
     public ImageView emptyImage;
     public TextView emptyTitle;
     public TextView emptySubTitle;
-
-    public static final int NO_RESULTS = 0;
-    public static final int NO_INTERNET = 1;
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
 
-        listView = rootView.findViewById(R.id.list);
+        listView = rootView.findViewById(R.id.search_list);
         mAdapter = new BookArrayAdapter(getContext(), new ArrayList<Book>());
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), BookActivity.class);
-                intent.putExtra("Book", (Book)adapterView.getAdapter().getItem(i));
+                intent.putExtra("Book", (Book) adapterView.getAdapter().getItem(i));
                 startActivity(intent);
             }
         });
-        progressBar = rootView.findViewById(R.id.progress);
+        progressBar = rootView.findViewById(R.id.search_progress);
         progressBar.setVisibility(View.GONE);
         searchEdit = rootView.findViewById(R.id.search_edit);
         searchEdit.setInputType(InputType.TYPE_CLASS_TEXT);
+        // Make it so the search function is called if the user clicks on 'done' from the keyboard
         searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -81,11 +79,16 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
                 search();
             }
         });
+        // Instead of setting an empty view using .setEmptyView(), we manipulate the views below
+        //  depending on the situation.
+        // Two empty views will be displayed according to the case (No internet / no search results)
         emptyView = rootView.findViewById(R.id.search_emptyView);
         emptyImage = rootView.findViewById(R.id.search_emptyImage);
         emptyTitle = rootView.findViewById(R.id.search_emptyTitle);
         emptySubTitle = rootView.findViewById(R.id.search_emptySubtitle);
 
+        // initialise the loader (found out that restartLoader() won't work
+        // if we didn't call initLoader() first)
         Bundle b = new Bundle();
         b.putString("query", "");
         getActivity().getSupportLoaderManager().initLoader(LOADER_ID, b, this);
@@ -93,21 +96,28 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
         return rootView;
     }
 
-    public void search(){
+    // This function is called when the user clicks the search button
+    public void search() {
         // Hide keyboard when the user finishes typing
-        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(searchEdit.getWindowToken(), 0);
 
+        // Get search query entered by the user
         String query = searchEdit.getText().toString();
         if (TextUtils.isEmpty(query))
+            // if it's empty, we don't query the search and just return
             return;
 
+        // if it's not empty, we discard the previous results
         mAdapter.clear();
-        ConnectivityManager cm = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        // and then check if there's connectivity
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm.getActiveNetworkInfo() == null) {
+            // if there isn't, we set the appropriate empty view and return
             setEmptyView(NO_INTERNET);
             return;
         }
+        // if there is, we perform the search
         Bundle bundle = new Bundle();
         bundle.putString("query", query);
         getActivity().getSupportLoaderManager().restartLoader(LOADER_ID, bundle, this);
@@ -115,9 +125,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public android.support.v4.content.Loader<ArrayList<Book>> onCreateLoader(int i, Bundle bundle) {
-        if (!first) {
-            progressBar.setVisibility(View.VISIBLE);
-        }
+        progressBar.setVisibility(View.VISIBLE);
         setEmptyView(View.GONE);
         return new BookAsyncTaskLoader(getContext(), bundle.getString("query"), progressBar);
     }
@@ -125,13 +133,13 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onLoadFinished(@NonNull android.support.v4.content.Loader<ArrayList<Book>> loader, ArrayList<Book> books) {
         progressBar.setVisibility(View.GONE);
-        if (books != null) {
+        if (books != null)
             mAdapter.addAll(books);
-            setEmptyView(View.GONE);
-        }
-        else if (!first) {
+        else if (!first)
+            // if this is the first time a search is being performed, it means that it's from
+            // calling initLoader(). We don't want to display the empty view because the user
+            // didn't perform any search.
             setEmptyView(NO_RESULTS);
-        }
         first = false;
     }
 
@@ -140,7 +148,8 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
         mAdapter.clear();
     }
 
-    public void setEmptyView(int mode){
+    // Setting the empty view accordingly to the scenario
+    public void setEmptyView(int mode) {
         switch (mode) {
             case View.GONE:
                 emptyView.setVisibility(View.GONE);

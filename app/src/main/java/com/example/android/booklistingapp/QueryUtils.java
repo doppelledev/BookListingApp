@@ -2,6 +2,7 @@ package com.example.android.booklistingapp;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,14 +16,14 @@ import java.util.ArrayList;
 public class QueryUtils {
 
     private final static String API_KEY = "AIzaSyDo6J7OLiKwl72LUTJtvB1KHD8RT-q0QeE";
-    private final static String URL_PREFIX  = "https://www.googleapis.com/books/v1/volumes?prettyPrint=false&maxResults=20&";
+    private final static String URL_PREFIX = "https://www.googleapis.com/books/v1/volumes?prettyPrint=false&maxResults=20&";
 
-    private QueryUtils(){
+    private QueryUtils() {
     }
 
     public static ArrayList<Book> searchBooks(String search_query) {
         // split the search query into keywords, and form a request url
-        String request_url  = formRequestUrl(search_query.split(" "));
+        String request_url = formRequestUrl(search_query.split(" "));
         // create a URL object using the request url
         URL url = createURL(request_url);
         // make an http request to the url, and retrieve the input stream
@@ -41,9 +42,9 @@ public class QueryUtils {
     }
 
     // forms and then returns a String representing the request url
-    private static String formRequestUrl(String [] keywords) {
+    private static String formRequestUrl(String[] keywords) {
         // first the prefix
-        StringBuilder request_url = new StringBuilder(URL_PREFIX );
+        StringBuilder request_url = new StringBuilder(URL_PREFIX);
         // append the api key
         request_url.append("Key=").append(API_KEY).append("&");
         // append the search query
@@ -58,7 +59,7 @@ public class QueryUtils {
     }
 
     // creates and returns a URL object using the request url string
-    private static URL createURL(String request_url){
+    private static URL createURL(String request_url) {
         try {
             return new URL(request_url);
         } catch (MalformedURLException e) {
@@ -68,10 +69,10 @@ public class QueryUtils {
     }
 
     // make an http request and return the input stream
-    private static InputStream makeHttpRequest(URL url){
+    private static InputStream makeHttpRequest(URL url) {
         HttpURLConnection urlConnection = null;
         try {
-            urlConnection = (HttpURLConnection)url.openConnection();
+            urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setReadTimeout(3000);
             urlConnection.setConnectTimeout(3000);
@@ -87,7 +88,7 @@ public class QueryUtils {
     }
 
     // reads the JSON response from the input stream and returns it
-    private static String readFromStream(InputStream is){
+    private static String readFromStream(InputStream is) {
         if (is == null)
             return null;
         InputStreamReader is_reader = new InputStreamReader(is, Charset.forName("UTF-8"));
@@ -106,7 +107,11 @@ public class QueryUtils {
         }
     }
 
-    private static ArrayList<Book> parseJSON(String JSONString){
+    /**
+     * Extract information about all the books in the jSONString.
+     * Return the information as an ArrayList of Books
+     */
+    private static ArrayList<Book> parseJSON(String JSONString) {
         try {
             JSONObject root = new JSONObject(JSONString);
             JSONArray items = root.getJSONArray("items");

@@ -1,67 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:paddingRight="16dp"
-    android:paddingLeft="16dp"
-    android:paddingTop="8dp"
+    android:gravity="center"
     android:paddingBottom="8dp"
-    android:gravity="center">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp">
 
     <ImageView
-        android:id="@+id/thumb"
+        android:id="@+id/list_item_thumb"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="16dp"
-        android:src="@drawable/image404"/>
+        android:src="@drawable/image404" />
+
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_weight="2">
+
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/list_item_title"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:fontFamily="@font/lekton_bold"
+            android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:fontFamily="@font/lekton_bold"
-            tools:text="Coding with JavaScript For Dummies"/>
+            tools:text="Coding with JavaScript For Dummies" />
+
         <TextView
-            android:id="@+id/authors"
+            android:id="@+id/list_item_authors"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:layout_below="@+id/title"
-            android:maxLines="1"
+            android:layout_below="@+id/list_item_title"
             android:ellipsize="end"
-            android:textSize="12sp"
             android:fontFamily="@font/lekton_regular"
-            tools:text="Dummies"/>
-        </RelativeLayout>
+            android:maxLines="1"
+            android:textSize="12sp"
+            tools:text="Dummies" />
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_gravity="center"
+        android:layout_weight="1"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
             android:fontFamily="@font/lekton_regular"
-            android:text="@string/publishedIn"/>
+            android:gravity="end"
+            android:text="@string/publishedIn" />
+
         <TextView
-            android:id="@+id/published_date"
+            android:id="@+id/list_item_pubdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/lekton_regular"
             android:gravity="end"
             android:textSize="12sp"
-            android:fontFamily="@font/lekton_regular"
-            tools:text="2017"/>
+            tools:text="2017" />
     </LinearLayout>
 
 </LinearLayout>

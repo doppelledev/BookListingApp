@@ -1,22 +1,22 @@
 package com.example.android.booklistingapp;
 
-import android.graphics.Bitmap;
-
 import java.io.Serializable;
 
-public class Book implements Serializable{
-    private String id;
+public class Book implements Serializable {
+    private String id;              // unique book identifier, different from _ID in the database
     private String title;
     private String authors;
     private String publisher;
     private String publishedDate;
     private String description;
-    private String thumbUrl;
-    private byte [] thumbBytes;
-    private String link;
+    private String thumbUrl;        // url of the book's thumbnail
+    private byte[] thumbBytes;     // book thumbnail converted to byte[]
+    private String link;            // link to view the book online
 
+    // first constructor, used in QueryUtils where the thumbnails are nto downloaded
+    // thus oly thumbUrl is provided
     Book(String id, String title, String authors, String publisher,
-         String publishedDate, String description, String thumbUrl, String link){
+         String publishedDate, String description, String thumbUrl, String link) {
         this.id = id;
         this.title = title;
         this.authors = authors;
@@ -27,8 +27,10 @@ public class Book implements Serializable{
         this.link = link;
     }
 
-    public Book(String id, String title, String authors, String publisher,
-                String publishedDate, String description, byte [] thumbBytes,  String link){
+    // second constructor, used when we have the actual thumbnail downloaded
+    // we provide the thumbnail as a byte[]
+    Book(String id, String title, String authors, String publisher,
+         String publishedDate, String description, byte[] thumbBytes, String link) {
         this.id = id;
         this.title = title;
         this.authors = authors;
@@ -38,6 +40,8 @@ public class Book implements Serializable{
         this.thumbBytes = thumbBytes;
         this.link = link;
     }
+
+    // typical getters
 
     public byte[] getThumbBytes() {
         return thumbBytes;
@@ -75,6 +79,7 @@ public class Book implements Serializable{
         return link;
     }
 
+    // to string method, helps in debugging
     @Override
     public String toString() {
         return "Title: " + getTitle() + "\nAuthor: " + getAuthors() + "\nPublished date: " + getPublishedDate();

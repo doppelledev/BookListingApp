@@ -17,6 +17,7 @@ public class LibraryDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        // SQL instruction to create the table
         String SQL_CREATE_LIBRARY_TABLE = "CREATE TABLE " + LibraryEntry.TABLE_NAME + "("
                 + LibraryEntry._ID + " INTEGER PRIMARY KEY, "
                 + LibraryEntry.COLUMN_BOOKID + " TEXT NOT NULL, "
@@ -27,6 +28,7 @@ public class LibraryDbHelper extends SQLiteOpenHelper {
                 + LibraryEntry.COLUMN_DESCRIPTION + " TEXT, "
                 + LibraryEntry.COLUMN_LINK + " TEXT, "
                 + LibraryEntry.COLUMN_THUMB + " BLOB);";
+        // execute the instruction
         sqLiteDatabase.execSQL(SQL_CREATE_LIBRARY_TABLE);
     }
 

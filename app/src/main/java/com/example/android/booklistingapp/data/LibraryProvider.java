@@ -23,8 +23,9 @@ public class LibraryProvider extends ContentProvider {
     private static final int WHOLE_TABLE = 0;
     private static final int SPECIFIC_ROW = 1;
 
+    // add matches to the uriMatcher
     static {
-        mUriMatcher.addURI(LibraryContract.CONTENT_AUTHORITY ,LibraryContract.PATH_LIBRARY, WHOLE_TABLE);
+        mUriMatcher.addURI(LibraryContract.CONTENT_AUTHORITY, LibraryContract.PATH_LIBRARY, WHOLE_TABLE);
         mUriMatcher.addURI(LibraryContract.CONTENT_AUTHORITY, LibraryContract.PATH_LIBRARY + "/#", SPECIFIC_ROW);
     }
 
@@ -45,18 +46,21 @@ public class LibraryProvider extends ContentProvider {
         Cursor cursor;
         switch (mUriMatcher.match(uri)) {
             case WHOLE_TABLE:
+                // the whole table is queried, perform the query as it is
                 cursor = db.query(LibraryEntry.TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
                 break;
             case SPECIFIC_ROW:
+                // a specific row is queried, change the selection and selection args to point to that row
                 selection = LibraryEntry._ID + "=?";
-                selectionArgs = new String [] {String.valueOf(ContentUris.parseId(uri))};
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 cursor = db.query(LibraryEntry.TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
                 break;
             default:
                 throw new IllegalArgumentException("Can't query. Invalid Uri: " + uri);
         }
+        // setNotificationUri to notify any changes
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
     }
@@ -66,6 +70,7 @@ public class LibraryProvider extends ContentProvider {
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues) {
         switch (mUriMatcher.match(uri)) {
             case WHOLE_TABLE:
+                // we only insert in a table, we can't insert in a row
                 return insertBook(uri, contentValues);
             default:
                 throw new IllegalArgumentException("Can't insert. Invalid Uri: " + uri);
@@ -99,17 +104,20 @@ public class LibraryProvider extends ContentProvider {
         int rowsDeleted;
         switch (mUriMatcher.match(uri)) {
             case WHOLE_TABLE:
+                // the whole table is addressed, perform the delete as it is
                 rowsDeleted = db.delete(LibraryEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             case SPECIFIC_ROW:
+                // a specific row is addressed, change the selection and selection args to point to that row
                 selection = LibraryEntry._ID + "=?";
-                selectionArgs = new String [] {String.valueOf(ContentUris.parseId(uri))};
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 rowsDeleted = db.delete(LibraryEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Can't delete. Invalid Uri: " + uri);
         }
         if (rowsDeleted > 0)
+            // if some rows have been deleted, notify changes
             getContext().getContentResolver().notifyChange(uri, null);
         return rowsDeleted;
     }
@@ -119,17 +127,19 @@ public class LibraryProvider extends ContentProvider {
                       @Nullable String selection, @Nullable String[] selectionArgs) {
         switch (mUriMatcher.match(uri)) {
             case WHOLE_TABLE:
+                // the whole table is being updated, perform the update as it is
                 return updateBooks(uri, contentValues, selection, selectionArgs);
             case SPECIFIC_ROW:
+                // a specific row is being updated, change the selection and selection args to point to that row
                 selection = LibraryEntry.TABLE_NAME + "=?";
-                selectionArgs = new String [] {String.valueOf(ContentUris.parseId(uri))};
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return updateBooks(uri, contentValues, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException("Can't update. Invalid Uri: " + uri);
         }
     }
 
-    private int updateBooks(Uri uri, ContentValues values, String selection, String [] selectionArgs) {
+    private int updateBooks(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         // sanity checks
         if (values.size() == 0)
             return 0;

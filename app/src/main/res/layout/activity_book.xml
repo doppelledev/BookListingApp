@@ -1,164 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp" >
-
-    <ImageView
-        android:id="@+id/s_thumb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_centerHorizontal="true"
-        tools:src="@drawable/image404"/>
-
-    <TextView
-        android:id="@+id/s_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/s_thumb"
-        android:textSize="20sp"
-        android:fontFamily="@font/lekton_bold"
-        android:textColor="@color/black"
-        android:textAlignment="center"
-        tools:text="Coding with javascript for dummies"/>
-
-    <LinearLayout
-        android:id="@+id/grp1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/s_title"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/lekton_bold"
-            android:text="@string/authors"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/lekton_bold"
-            android:textColor="@color/black"
-            android:text="@string/publisher"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:fontFamily="@font/lekton_bold"
-            android:textColor="@color/black"
-            android:text="@string/publishedDate"/>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/grp2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_toRightOf="@id/grp1"
-        android:layout_below="@id/s_title"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/s_authors"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/lekton_bold"
-            android:maxLines="1"
-            android:ellipsize="end"
-            tools:text="Abdou Oua, Kata Yas" />
-
-        <TextView
-            android:id="@+id/s_publisher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/lekton_bold"
-            android:maxLines="1"
-            android:ellipsize="end"
-            tools:text="Dummies house"/>
-
-        <TextView
-            android:id="@+id/s_published_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lekton_bold"
-            tools:text="2017"/>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/s_description_grp"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/grp2"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical">
+        android:padding="16dp">
 
-        <TextView
+        <ImageView
+            android:id="@+id/b_thumb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="16dp"
+            tools:src="@drawable/image404" />
+
+        <TextView
+            android:id="@+id/b_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/b_thumb"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp"
             android:fontFamily="@font/lekton_bold"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:text="@string/description"/>
-        <TextView
-            android:id="@+id/s_description"
+            android:textSize="20sp"
+            tools:text="Coding with javascript for dummies" />
+
+        <LinearLayout
+            android:id="@+id/grp1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:fontFamily="@font/lekton_regular"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:background="@color/colorPrimary"
-            tools:text="@string/sample_description"/>
-    </LinearLayout>
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/b_title"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/view_online"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/s_description_grp"
-        android:background="@color/colorPrimaryLight">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="20dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp"
-        android:fontFamily="@font/lekton_regular"
-        android:textColor="@color/white"
-        android:background="?attr/selectableItemBackground"
-        android:text="@string/ViewItOnline"/>
-    </FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/lekton_bold"
+                android:text="@string/authors"
+                android:textColor="@color/black" />
 
-</RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/lekton_bold"
+                android:text="@string/publisher"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:fontFamily="@font/lekton_bold"
+                android:text="@string/publishedDate"
+                android:textColor="@color/black" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/grp2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/b_title"
+            android:layout_marginBottom="16dp"
+            android:layout_toRightOf="@id/grp1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/b_authors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/lekton_bold"
+                android:maxLines="1"
+                tools:text="Abdou Oua, Kata Yas" />
+
+            <TextView
+                android:id="@+id/b_publisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/lekton_bold"
+                android:maxLines="1"
+                tools:text="Dummies house" />
+
+            <TextView
+                android:id="@+id/b_pubdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lekton_bold"
+                tools:text="2017" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/description_grp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/grp2"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/lekton_bold"
+                android:text="@string/description"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/b_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:background="@color/colorPrimary"
+                android:fontFamily="@font/lekton_regular"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                tools:text="@string/sample_description" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/view_online"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/description_grp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="16dp"
+            android:background="@color/colorPrimaryLight">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:fontFamily="@font/lekton_regular"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:text="@string/ViewItOnline"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+        </FrameLayout>
+
+    </RelativeLayout>
 </ScrollView>

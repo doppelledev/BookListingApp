@@ -14,7 +14,7 @@ import com.example.android.booklistingapp.data.LibraryContract.LibraryEntry;
 
 public class LibraryCursorAdapter extends CursorAdapter {
 
-    public LibraryCursorAdapter(Context context, Cursor cursor) {
+    LibraryCursorAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
     }
 
@@ -25,24 +25,20 @@ public class LibraryCursorAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView title_tv = view.findViewById(R.id.title);
+        TextView title_tv = view.findViewById(R.id.list_item_title);
         String title = cursor.getString(cursor.getColumnIndexOrThrow(LibraryEntry.COLUMN_TITLE));
         title_tv.setText(title);
-        TextView authors_tv = view.findViewById(R.id.authors);
+        TextView authors_tv = view.findViewById(R.id.list_item_authors);
         String authors = cursor.getString(cursor.getColumnIndexOrThrow(LibraryEntry.COLUMN_AUTHORS));
         authors_tv.setText(authors);
-        TextView pubdate_tv = view.findViewById(R.id.published_date);
+        TextView pubdate_tv = view.findViewById(R.id.list_item_pubdate);
         String pubdate = cursor.getString(cursor.getColumnIndexOrThrow(LibraryEntry.COLUMN_PUBDATE));
         pubdate = pubdate != null && pubdate.length() > 5 ?
                 pubdate.substring(0, 4) : context.getResources().getString(R.string.notFound);
         pubdate_tv.setText(pubdate);
-        ImageView thumb = view.findViewById(R.id.thumb);
-        byte [] thumbBytes = cursor.getBlob(cursor.getColumnIndexOrThrow(LibraryEntry.COLUMN_THUMB));
-        if (thumbBytes == null)
-            thumb.setImageResource(R.drawable.image404);
-        else {
-            Bitmap thumbBitmap = BitmapUtils.getBitmap(thumbBytes);
-            thumb.setImageBitmap(thumbBitmap);
-        }
+        ImageView thumb = view.findViewById(R.id.list_item_thumb);
+        byte[] thumbBytes = cursor.getBlob(cursor.getColumnIndexOrThrow(LibraryEntry.COLUMN_THUMB));
+        Bitmap thumbBitmap = BitmapUtils.getBitmap(thumbBytes);
+        thumb.setImageBitmap(thumbBitmap);
     }
 }
