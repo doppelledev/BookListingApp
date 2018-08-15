@@ -12,10 +12,11 @@ public class Book implements Serializable{
     private String publishedDate;
     private String description;
     private String thumbUrl;
+    private byte [] thumbBytes;
     private String link;
 
-    public Book(String id, String title, String authors, String publisher,
-                String publishedDate, String description, String thumbUrl,  String link){
+    Book(String id, String title, String authors, String publisher,
+         String publishedDate, String description, String thumbUrl, String link){
         this.id = id;
         this.title = title;
         this.authors = authors;
@@ -24,6 +25,22 @@ public class Book implements Serializable{
         this.description = description;
         this.thumbUrl = thumbUrl;
         this.link = link;
+    }
+
+    public Book(String id, String title, String authors, String publisher,
+                String publishedDate, String description, byte [] thumbBytes,  String link){
+        this.id = id;
+        this.title = title;
+        this.authors = authors;
+        this.publisher = publisher;
+        this.publishedDate = publishedDate;
+        this.description = description;
+        this.thumbBytes = thumbBytes;
+        this.link = link;
+    }
+
+    public byte[] getThumbBytes() {
+        return thumbBytes;
     }
 
     public String getId() {

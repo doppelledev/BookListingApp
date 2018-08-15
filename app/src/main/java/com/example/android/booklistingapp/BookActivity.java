@@ -26,6 +26,7 @@ import java.net.URL;
 
 public class BookActivity extends AppCompatActivity {
     public Book book;
+    public ImageView thumb;
     public static Bitmap thumbBitmap;
     public boolean bookExists;
     public Menu menu;
@@ -36,9 +37,13 @@ public class BookActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book);
 
         book = (Book)getIntent().getSerializableExtra("Book");
-
-        getThumb task = new getThumb(this);
-        task.execute(book.getThumbUrl());
+        if (book.getThumbUrl() == null) {
+            getThumb task = new getThumb(this);
+            task.execute(book.getThumbUrl());
+        } else {
+            thumbBitmap = BitmapUtils.getBitmap(book.getThumbBytes());
+            updateImage();
+        }
 
         String field;
         String notFound = getResources().getString(R.string.notFound);
@@ -74,10 +79,14 @@ public class BookActivity extends AppCompatActivity {
         String [] selectionArgs = {book.getId()};
         Cursor cursor = getContentResolver().query(LibraryEntry.CONTENT_URI, null,
                 selection, selectionArgs, null);
-        if (cursor.getCount() == 0)
-            bookExists = true;
+        if (cursor != null) {
+            if (cursor.getCount() == 0)
+                bookExists = true;
+            cursor.close();
+        }
         else
             bookExists = false;
+
     }
 
     @Override
@@ -160,6 +169,13 @@ public class BookActivity extends AppCompatActivity {
                 thumb.setImageResource(R.drawable.image404);
             thumbBitmap = bitmap;
         }
+    }
+
+    public void updateImage(){
+        if (thumbBitmap != null)
+            thumb.setImageBitmap(thumbBitmap);
+        else
+            thumb.setImageResource(R.drawable.image404);
     }
 
 }
