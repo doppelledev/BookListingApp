@@ -41,7 +41,7 @@ public class BookArrayAdapter extends ArrayAdapter {
         TextView publishedDate_tv = convertView.findViewById(R.id.list_item_pubdate);
         String publishedDate = book.getPublishedDate();
         // only display the year of the date if available
-        publishedDate = publishedDate.length() >= 5 ?
+        publishedDate = publishedDate.length() >= 4 ?
                 publishedDate.substring(0, 4) : getContext().getResources().getString(R.string.notFound);
         publishedDate_tv.setText(publishedDate);
 

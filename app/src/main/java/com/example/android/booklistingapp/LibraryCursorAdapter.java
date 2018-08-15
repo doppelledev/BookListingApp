@@ -33,7 +33,7 @@ public class LibraryCursorAdapter extends CursorAdapter {
         authors_tv.setText(authors);
         TextView pubdate_tv = view.findViewById(R.id.list_item_pubdate);
         String pubdate = cursor.getString(cursor.getColumnIndexOrThrow(LibraryEntry.COLUMN_PUBDATE));
-        pubdate = pubdate != null && pubdate.length() > 5 ?
+        pubdate = pubdate != null && pubdate.length() >= 4 ?
                 pubdate.substring(0, 4) : context.getResources().getString(R.string.notFound);
         pubdate_tv.setText(pubdate);
         ImageView thumb = view.findViewById(R.id.list_item_thumb);
