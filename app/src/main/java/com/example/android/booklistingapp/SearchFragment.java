@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,6 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
     public ImageView emptyImage;
     public TextView emptyTitle;
     public TextView emptySubTitle;
-    public ImageView startingImage;
 
     public static final int NO_RESULTS = 0;
     public static final int NO_INTERNET = 1;
@@ -85,7 +85,6 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
         emptyImage = rootView.findViewById(R.id.search_emptyImage);
         emptyTitle = rootView.findViewById(R.id.search_emptyTitle);
         emptySubTitle = rootView.findViewById(R.id.search_emptySubtitle);
-        startingImage = rootView.findViewById(R.id.starting_image);
 
         Bundle b = new Bundle();
         b.putString("query", "");
@@ -94,28 +93,23 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
         return rootView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        // this prevents the starting image to go visible again after rotating the screen
-        if (!first)
-            startingImage.setVisibility(View.GONE);
-    }
-
     public void search(){
         // Hide keyboard when the user finishes typing
         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(searchEdit.getWindowToken(), 0);
 
+        String query = searchEdit.getText().toString();
+        if (TextUtils.isEmpty(query))
+            return;
+
         mAdapter.clear();
-        startingImage.setVisibility(View.GONE);
         ConnectivityManager cm = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm.getActiveNetworkInfo() == null) {
             setEmptyView(NO_INTERNET);
             return;
         }
         Bundle bundle = new Bundle();
-        bundle.putString("query", searchEdit.getText().toString());
+        bundle.putString("query", query);
         getActivity().getSupportLoaderManager().restartLoader(LOADER_ID, bundle, this);
     }
 

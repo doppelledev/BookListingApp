@@ -29,6 +29,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_centerHorizontal="true"
             android:textColor="@color/black"
+            android:textAlignment="center"
             android:text="@string/empty_library"/>
         <TextView
             android:id="@+id/library_emptySubtitle"
@@ -36,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/library_emptyTitle"
             android:layout_centerHorizontal="true"
+            android:textAlignment="center"
             android:text="@string/start"/>
     </RelativeLayout>
 </RelativeLayout>

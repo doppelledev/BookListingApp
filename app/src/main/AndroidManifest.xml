@@ -22,7 +22,6 @@
         </activity>
         <activity
             android:name=".BookActivity"
-            android:label="@string/title_activity_book"
             android:parentActivityName=".MainActivity">
         </activity>
         <provider

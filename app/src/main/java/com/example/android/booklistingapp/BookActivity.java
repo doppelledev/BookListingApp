@@ -50,6 +50,8 @@ public class BookActivity extends AppCompatActivity {
             updateImage();
         }
 
+        setTitle(book.getTitle());
+        
         String field;
         String notFound = getResources().getString(R.string.notFound);
         bookid = book.getId();
@@ -97,9 +99,9 @@ public class BookActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         if (bookExists) {
             getMenuInflater().inflate(R.menu.menu_save, menu);
-            this.menu = menu;
             return true;
         } else {
             getMenuInflater().inflate(R.menu.menu_delete, menu);
@@ -144,7 +146,8 @@ public class BookActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.not_saved, Toast.LENGTH_SHORT).show();
         else {
             Toast.makeText(this, R.string.saved, Toast.LENGTH_SHORT).show();
-            menu.findItem(R.id.save_book).setVisible(false);
+            menu.clear();
+            getMenuInflater().inflate(R.menu.menu_delete, menu);
         }
     }
 
@@ -161,7 +164,8 @@ public class BookActivity extends AppCompatActivity {
                         if (rowsDeleted > 0) {
                             Toast.makeText(getApplicationContext(), getString(R.string.deleted),
                                     Toast.LENGTH_SHORT).show();
-                            finish();
+                            menu.clear();
+                            getMenuInflater().inflate(R.menu.menu_save, menu);
                         } else
                             Toast.makeText(getApplicationContext(), getString(R.string.not_deleted),
                                 Toast.LENGTH_SHORT).show();
