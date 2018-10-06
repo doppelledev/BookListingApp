@@ -1,5 +1,5 @@
 # Book llisting app
-Final project in udacity's android free course on data networking. (I added eatures related to data storage)
+Final project in udacity's android free course on networking. (I added eatures related to data storage)
 ## Screenshots
 |   |   |   |   |
 | - | - | - | - |
