@@ -1,6 +1,5 @@
-# Inventory app
-Final project in udacity's android free course on data storage.
-This app can be useful for someone who runs a store and wants to keep track of all his products.
+# Book llisting app
+Final project in udacity's android free course on data networking. (I added eatures related to data storage)
 ## Screenshots
 |   |   |   |   |
 | - | - | - | - |
